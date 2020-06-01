@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config| 
+    config.vm.box = "centos/7"
+    config.vm.provider :virtualbox do |v|
+        v.memory = 1024
+        v.cpus = 1
+        v.linked_clone = true 
+    end
+    # Define three VMs with static private IP addresses.
+ 
+    boxes = [
+        { :name => "vault", :ip => "192.168.33.71" },
+        { :name => "consul", :ip => "192.168.33.72" } 
+    ]
+    # Provision each of the VMs.
+    boxes.each do |opts|
+        config.vm.define opts[:name] do |config|
+            config.vm.hostname = opts[:name]
+            config.vm.network :private_network, ip: opts[:ip]
+            
+            # uncomment to add a file 
+            #config.vm.provision "folder", source: "/Users/jibinxavier/workspace/myfile", destination: "$HOME/"
+        end 
+    end
+end
