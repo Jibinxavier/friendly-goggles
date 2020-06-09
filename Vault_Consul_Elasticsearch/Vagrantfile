@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.vm.network :private_network, ip: opts[:ip]
             
             # uncomment to add a file 
-            #config.vm.provision "folder", source: "/Users/jibinxavier/workspace/myfile", destination: "$HOME/"
+            
         end 
     end
 end
